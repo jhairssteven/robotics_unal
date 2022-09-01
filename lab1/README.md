@@ -24,7 +24,7 @@ In the figure below you will find the final tool. It has 5 main components (apar
  ![Tool physical characteristics](/lab1/images/tool-physical-characteristics.png)
 
 ### Considerations
- - The black-colored component (base) was designed taking into account the [Official Robot Tool Flange dimensions](www.google.com).
+ - The black-colored component (base) was designed taking into account the [Official Robot Tool Flange dimensions](https://library.e.abb.com/public/a7121292272d40a9992a50745fdaa3b2/3HAC041346%20PS%20IRB%20140-en.pdf).
  - The red-colored components were designed so that they prevent the marker's axial rotation and their base design was taken from [here](https://github.com/ariasAleia/RobotStudio_Robotics_Lab4#guide).
  - The whiteboard marker's CAD was taken from [GrabCad](https://grabcad.com/library/expo-marker-1).
 - In order to use the CAD in RobotStudio you should export the model in .STL format.
