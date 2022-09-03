@@ -77,6 +77,15 @@ Last on this item, we set all move instructions' speed and error to `v500` and `
 
 
 ## Simulations and physical implementation
+
+### Drawing on Floor - Simulation 
+https://user-images.githubusercontent.com/49238411/188252409-a00c9f21-d77b-49e0-9a37-c2a3ab7223d6.mp4
+### Drawing on Leaning Plane - Simulation
+https://user-images.githubusercontent.com/49238411/188252382-e7f23fda-ccc3-4f28-89d4-f93ee79c92a9.mp4
+### Drawing on Floor - Implementation
+https://user-images.githubusercontent.com/49238411/188252399-710d3d6a-cfe0-4df0-807f-b6ac36c24f7e.mp4
+
+
 ___
 
 Developed by
