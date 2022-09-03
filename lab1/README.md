@@ -4,12 +4,11 @@ We are using the ABB IRB140 Robot with the RobotStudio software. We develop the 
 
 ## Table of contents
 ___
-- Tool CAD design
-- Tool set up in RobotStudio
-- Setting up the environment
-- Getting trajectories with the `auto-path` wizard
-- Setting up robot tool-orientation to prevent singularities
-- Simulations and physical implementation
+- [Tool CAD design](#tool-cad-design)
+- [Tool set up in RobotStudio](#tool-set-up-in-robotstudio)
+- [Setting up the environment](#setting-up-the-environment)
+- [Getting trajectories with the `auto-path` wizard](#getting-trajectories-with-the-auto-path-wizard)
+- [Simulations and physical implementation](#simulations-and-physical-implementation)
 
 ## Tool CAD design
 ___
@@ -44,13 +43,14 @@ ___
     ![Save tool as library](/lab1/images/save-as-library.png)
 
 ## Setting up the environment
-
+___
 From `Virtual Controller > New Controller...` Add a new controller for the IRB140 robot and set the appropiate RobotWare version. Then on `Import Library > Browse for Library...` import the newly created library and finally attach it to the robot.
 
 ![Attach library tool to robot](/lab1/images/attach-library-tool-to-robot.png)
 
 
 ## Getting trajectories with the `auto-path` wizard
+___
 
 In order to get our trajectories automatically we first create a CAD model with the desired initials extruded just like the figure below.
 
@@ -70,7 +70,8 @@ To safely return to a specified home position we create a JointTarget (`Home > T
 Last on this item, we set all move instructions' speed and error to `v500` and `zfine` except for the `home routine` which is set to v1000 and z50.
 
 
-
+## Simulations and physical implementation
+___
 
 Developed by
 [Juan David Díaz García](https://github.com/D4vidDG) and [Steven Gallego](https://github.com/jhairssteven).
