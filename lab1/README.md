@@ -52,6 +52,10 @@ From `Virtual Controller > New Controller...` Add a new controller for the IRB14
 ## Getting trajectories with the `auto-path` wizard
 ___
 
+First, we create a `workobject` which is going to facilitate changing plane's orientation without creating separate targets. Go to:
+
+``` Home > Other > Create workobject ```
+
 In order to get our trajectories automatically we first create a CAD model with the desired initials extruded just like the figure below.
 
 ![Initials CAD](/lab1/images/initials-cad.png)
@@ -62,6 +66,8 @@ After importing and relocating the CAD model to the desired position, we go to `
 Then, set the tool orientation accordingly to prevent robot singularities.After setting one target's orientation you copy it, select all restant targets and apply this copied orientation.
 
 ![Tool-orientation-copy-and-replicate](/lab1/images/tool-position-copu.png)
+
+In order to make the drawing on an inclined surface, we only need to change the workobject orientation and all paths and targets will updated accordingly.
 
 ### Creating a return-to-home routine
 
