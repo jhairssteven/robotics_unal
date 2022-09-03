@@ -43,8 +43,34 @@ ___
 
     ![Save tool as library](/lab1/images/save-as-library.png)
 
+## Setting up the environment
+
+From `Virtual Controller > New Controller...` Add a new controller for the IRB140 robot and set the appropiate RobotWare version. Then on `Import Library > Browse for Library...` import the newly created library and finally attach it to the robot.
+
+![Attach library tool to robot](/lab1/images/attach-library-tool-to-robot.png)
 
 
-___
+## Getting trajectories with the `auto-path` wizard
+
+In order to get our trajectories automatically we first create a CAD model with the desired initials extruded just like the figure below.
+
+![Initials CAD](/lab1/images/initials-cad.png)
+
+After importing and relocating the CAD model to the desired position, we go to `Home > Path > AutoPath`. We create the targets selecting the CAD's edges accordingly, putting special care in the **Approach** and **Depart** options. In our example we set both to 50mm. We also check the **Circular** option to get a better path aproximation and to reduce the number of generated targets.
+
+
+Then, set the tool orientation accordingly to prevent robot singularities.After setting one target's orientation you copy it, select all restant targets and apply this copied orientation.
+
+![Tool-orientation-copy-and-replicate](/lab1/images/tool-position-copu.png)
+
+### Creating a return-to-home routine
+
+To safely return to a specified home position we create a JointTarget (`Home > Target > Create JointTarget`) and we set the `Robot axes` parameter all to $0°$. We then add it to a new path that we are gonna use for at least two times, at a first moment to relocate robot to desired home position for security purposes and as a last movement for safely switching between routines. We also create a `medium point path` to prevent RobotStudio stucking itself going from home to the first CAD's target. This target is created via the `Home > Target > Create Target` and we enter the desired position.
+
+Last on this item, we set all move instructions' speed and error to `v500` and `zfine` except for the `home routine` which is set to v1000 and z50.
+
+
+
+
 Developed by
 [Juan David Díaz García](https://github.com/D4vidDG) and [Steven Gallego](https://github.com/jhairssteven).
