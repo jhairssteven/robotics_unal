@@ -13,7 +13,6 @@ def turtleMov(x, y, a, m=1):
         tp = rospy.ServiceProxy(service, mode)
         tp(x, y, a) if m else tp(x, a)
         print('x: {}, y: {}, ang: {}, m: {}'.format(x, y, a, 'a' if m else 'r'))
-#        print('x: {}, y: {}, ang: {}, m: {}'.format(str(x),str(y),str(a)))
     except rospy.ServiceException as e:
         print(str(e))
 
