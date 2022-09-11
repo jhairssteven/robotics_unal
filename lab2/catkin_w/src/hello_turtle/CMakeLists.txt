@@ -61,6 +61,7 @@ catkin_install_python(PROGRAMS
   scripts/turtleSpawn.py
   scripts/turtleSub.py
   scripts/turtleVel.py
+  scripts/myTeleopKey.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
