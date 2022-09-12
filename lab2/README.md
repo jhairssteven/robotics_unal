@@ -9,7 +9,7 @@ It is simply a set of nodes.
 A topic is a piece of information used and provided by nodes in other to make interaction possible.
 ### **What are messages, publisers and subscribers?**
 These are terms that relate how information is produced and who produces it. For instance, to "publish" is the action a node takes to make available some information. On the other hadn, you can "subscribe" to information or nodes.
-# Methodology
+# System requirements
 We are using an Ubuntu 20.04 installation, with ROS noetic version 1.15.14 and MATLAB R2022a.
 
 ## Required Matlab toolboxes
