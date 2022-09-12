@@ -39,6 +39,10 @@ Finally, the the `send` function sends these configurations to the ROS master no
 
 
 # Python implementation
+## Required packages
+- pynput
+- numpy
+
 We will build a custom ROS node to control the `turtlesim` node using our computer's keyboard. Mapping is as follows:
 - `w`: Move forwards
 - `s`: Move backwards
