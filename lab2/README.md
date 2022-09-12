@@ -155,7 +155,7 @@ The `turtleMove()` function receives 4 requiered parameters which specify the fi
     ...
 ```
 
-The `VelPub` class implements an [`__init__`](/lab2/catkin_w/src/hello_turtle/scripts/turtleVel.py#L7-L11) method to initialize the ROS publisher `/turtle1/cmd_vel` only once, there we also define a `Twist` message type and a rate of execution of $0.1s$ given as a frecuency. We define a `pubVel()` function which actualize moves the Turtle. Here we set the linear X velocity and the rotation angle, publish the message and execute it by $0.1s$ as described in the configuration function before.
+The `VelPub` class implements an [`__init__`](https://github.com/jhairssteven/robotics_unal/blob/8687373c2192729f77868386736f197b9f707529/lab2/catkin_w/src/hello_turtle/scripts/turtleVel.py#L7-L11) method to initialize the ROS publisher `/turtle1/cmd_vel` only once, there we also define a `Twist` message type and a rate of execution of $0.1s$ given as a frecuency. We define a `pubVel()` function which actualize moves the Turtle. Here we set the linear X velocity and the rotation angle, publish the message and execute it by $0.1s$ as described in the configuration function before.
 
 ```python
     def pubVel(self, vx, az):
