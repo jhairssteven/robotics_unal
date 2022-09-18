@@ -46,7 +46,11 @@ We use the [trajectory paths](../lab1/RobotStudio%20modules/hor_plane/Module1.mo
 
 ## Simulations and physical implementation
 ___
-<!-- ### Digital I/O - Simulation -->
+
+### Digital I/O - Simulation
+
+https://user-images.githubusercontent.com/71862429/190883805-9fdef2ee-af37-474d-b7b7-35da6178ca70.mp4
+
 
 ___
 
