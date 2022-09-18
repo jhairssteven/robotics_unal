@@ -1,0 +1,1 @@
+# Industrial robotics - part 2 | Inputs and outputs
