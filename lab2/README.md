@@ -7,11 +7,13 @@ It is simply a set of nodes.
 
 ### **What's a topic?**
 A topic is a piece of information used and provided by nodes in other to make interaction possible.
-### **What are messages, publisers and subscribers?**
-These are terms that relate how information is produced and who produces it. For instance, to "publish" is the action a node takes to make available some information. On the other hadn, you can "subscribe" to information or nodes.
+### **What are messages, publishers and subscribers?**
+These are terms that relate how information is produced and who produces it. For instance, to "publish" is the action a node takes to make available some information. On the other hand, you can "subscribe" to information or nodes.
+### **What are services?**
+A service is another way of communication between nodes apart from the publisher/subscriber model. Nodes can provide services to other nodes (clients), which need to call those services using a "request" message. When a client has connected to and called a provider's service succesfully , the provider sends a "reply" message back to the client.
 # System requirements
 We are using an Ubuntu 20.04 installation, with ROS noetic version 1.15.14 and MATLAB R2022a.
-
+#Matlab Implementation
 ## Required Matlab toolboxes
 - Robotics ToolBox
 - ROS ToolBox
@@ -37,6 +39,22 @@ We initialize a *message* instance with the already configured *publisher* insta
 
 Finally, the the `send` function sends these configurations to the ROS master node running on localhost which causes the turtle drawing to move as specified.
 
+```matlab
+SUB = rossubscriber("/turtle1/pose");
+message = SUB.LatestMessage
+```
+We subscribe to the *pose* topic with the `rossubscribe` command. Subscribing to this topic allows us to retrieve information about the current position and orientation of the turtle.`LatestMessage` contains this information, which is stored in the `message` variable.
+
+```matlab
+[CLIENT,REQUEST] = rossvcclient("/turtle1/teleport_absolute","DataFormat","struct")
+REQUEST.X = single(6);
+REQUEST.Y = single(8);
+theta = deg2rad(45);
+REQUEST.Theta = single(theta);
+waitForServer(CLIENT,"Timeout",3)
+response = call(CLIENT,REQUEST)
+```
+First, we create a client using the `rossvcclient` command. This command receives the name of the service we want to call, and the data format for the request. In this case, we want to call the "teleport_absolute" service, which moves the turtle to a specific position relative to the window frame. The request of this topic consist of 3 values: x position, y position, and angle in radians. We modify this values to move the turtle to the desired position. After setting up the request, we use the `waitForServer` command to make sure the client is connected to the "teleport_absolute" service. Finally, we call this service using the `call` command and we pass the client and request objects as arguments. THe reply message from the service is stored in the variable `response`.
 
 # Python implementation
 ## Required packages
@@ -155,7 +173,7 @@ The `turtleMove()` function receives 4 requiered parameters which specify the fi
     ...
 ```
 
-The `VelPub` class implements an [`__init__`](/lab2/catkin_w/src/hello_turtle/scripts/turtleVel.py#L7-L11) method to initialize the ROS publisher `/turtle1/cmd_vel` only once, there we also define a `Twist` message type and a rate of execution of $0.1s$ given as a frecuency. We define a `pubVel()` function which actualize moves the Turtle. Here we set the linear X velocity and the rotation angle, publish the message and execute it by $0.1s$ as described in the configuration function before.
+The `VelPub` class implements an [`__init__`](https://github.com/jhairssteven/robotics_unal/blob/8687373c2192729f77868386736f197b9f707529/lab2/catkin_w/src/hello_turtle/scripts/turtleVel.py#L7-L11) method to initialize the ROS publisher `/turtle1/cmd_vel` only once, there we also define a `Twist` message type and a rate of execution of $0.1s$ given as a frecuency. We define a `pubVel()` function which actualize moves the Turtle. Here we set the linear X velocity and the rotation angle, publish the message and execute it by $0.1s$ as described in the configuration function before.
 
 ```python
     def pubVel(self, vx, az):
