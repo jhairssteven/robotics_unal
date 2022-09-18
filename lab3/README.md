@@ -12,8 +12,17 @@ ___
 ## Implementing I/O on RobotStudio
 ___
 <!-- Briefly describe how to create the `input` and `output` signals in RobotStudio. -->
+We create input and output signals following the steps shown in the image below.
+![Creating - IOs](/lab3/images/Creating_IOs.png)
 
-## Getting started with loops and conditionals
+A window wizard opens to create a new signal, we create three inputs and one output. Below is the complete configuration. 
+![Created signals](/lab3/images/Created_signals.png)
+
+Finally, we start the ***I/O Simulator*** to see and manage our signal's state. Note that we filter by device and select *\<none>* because we didn't assign a device when we created the signals. This way later, we can filter by device and see just our recently created signals.
+
+![IO Simulator](/lab3/images/IO_simulator.png)
+
+## Loops and conditionals
 ___
 After some research, [Robotics & Gaming](https://www.youtube.com/watch?v=kRuSMqpowLU) and [BME Teaching](https://www.youtube.com/watch?v=Z6foYAlgE8A) show how to use `while` loops and conditional statements in RobotStudio. The syntax is quite simple and pretty similar to other programming languages. Below you can find their implementation in the project.
 
@@ -41,8 +50,9 @@ ENDWHILE
 
 ## Using old trajectories and implementing new ones
 ___
-We use the [trajectory paths](../lab1/RobotStudio%20modules/hor_plane/Module1.mod) developed on part one to write our name's initials on an horizontal plane and we also develop a new one which positions the robot at a convenient posture to easily install our [tool](../lab1/CADs/SATs/ToolM.sat). 
-<!-- Below you can find a simplified flow diagram of the code arquitecture. -->
+We use the [trajectory paths](../lab1/RobotStudio%20modules/hor_plane/Module1.mod) developed on part one to write our name's initials on an horizontal plane together with a new trajectory which positions the robot at a convenient posture to easily install our [tool](../lab1/CADs/SATs/ToolM.sat). Below you can find a simplified flow diagram of the code arquitecture.
+
+![Code flow diagram](/lab3/images/code_flow_diagram.png)
 
 ## Simulations and physical implementation
 ___
