@@ -6,6 +6,7 @@ Feel free to take this as a reference for your projects, as this repo is under t
 # Table of contents
 - [Lab 1 | Industrial robotics - part 1](lab1/README.md)
 - [Lab 2 | ROS intro](lab2/README.md)
+- [Lab 3 | Industrial robotics - part 2](lab3/README.md)
 ___
 Developed by
 [Juan David Díaz García](https://github.com/D4vidDG) and [Steven Gallego](https://github.com/jhairssteven).
