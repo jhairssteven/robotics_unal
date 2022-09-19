@@ -190,11 +190,31 @@ The `VelPub` class implements an [`__init__`](https://github.com/jhairssteven/ro
         self.rate.sleep()
 ```
 
-# Results
+# Results and Analysis
 ## MATLAB Implementation
+
 ### Use of Publishers 
+First, we have the turtle original position:
+
+![Turtle original position](/lab2/images/turtle_original.png)
+
+Then, the turtle moves 1 unit in X after setting the velocity to this value:
+
+![Turtle after publisher](/lab2/images/turtle_after_publisher.png)
+
 ### Use of Subscribers 
+The information about position and orientation after publishing is shown: 
+
+![Turtle info after publisher](/lab2/images/subs_info_1.png)
+
 ### Use of Services 
+After using the "teleport_absolute" service, the turtle position and orientation changes as shown:
+
+![Turtle after Service](/lab2/images/turtle_teleport_service.png)
+
+We can verify this by using the previous publisher created:
+
+![Turtle info after publisher](/lab2/images/subs_info_2.png)
 
 
 
