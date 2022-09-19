@@ -216,11 +216,17 @@ We can verify this by using the previous subscriber created:
 
 ![Turtle info after publisher](/lab2/images/subs_info_2.png)
 
+## Python implementation
+
+Below you can find a short video showing the keyboard interface's results. Note we use the `r` key not only to reset the turtle's position but to clear the trajectory.
+
+https://user-images.githubusercontent.com/71862429/191089540-2287ad6a-23c9-4036-8ff2-29dd143fd6fe.mp4
 
 # Conclusions
 1. The publisher/subscriber communication model allows loose coupling between nodes, which helps managing the system as it grows in complexity.
 2. Communication based on services is easier to use than the publisher/subscriber communication model because it is possible to read and write information in one step.
 3. MATLAB offers an useful set of commands that help using and understanding ROS. 
+4. Implementing ROS packages in python gives us a lot of flexibility and the oportunity to develop complex systems integrated with modern tools.
 ___
 Developed by
 [Juan David Díaz García](https://github.com/D4vidDG) and [Steven Gallego](https://github.com/jhairssteven).
