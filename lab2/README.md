@@ -212,7 +212,7 @@ After using the "teleport_absolute" service, the turtle position and orientation
 
 ![Turtle after Service](/lab2/images/turtle_teleport_service.png)
 
-We can verify this by using the previous publisher created:
+We can verify this by using the previous subscriber created:
 
 ![Turtle info after publisher](/lab2/images/subs_info_2.png)
 
