@@ -15,10 +15,10 @@ A service is another way of communication between nodes apart from the publisher
 # System requirements
 We are using an Ubuntu 20.04 installation, with ROS noetic version 1.15.14 and MATLAB R2022a.
 #Matlab Implementation
-## Required Matlab toolboxes
+## Required MATLAB toolboxes
 - Robotics ToolBox
 - ROS ToolBox
-## Required packages
+## Required Python packages
 - pynput
 - numpy
 
@@ -217,10 +217,10 @@ We can verify this by using the previous publisher created:
 ![Turtle info after publisher](/lab2/images/subs_info_2.png)
 
 
-
-
-
-
+# Conclusions
+1. The publisher/subscriber communication model allows loose coupling between nodes, which helps managing the system as it grows in complexity.
+2. Communication based on services is easier to use than the publisher/subscriber communication model because it is possible to read and write information in one step.
+3. MATLAB offers an useful set of commands that help using and understanding ROS. 
 ___
 Developed by
 [Juan David Díaz García](https://github.com/D4vidDG) and [Steven Gallego](https://github.com/jhairssteven).
