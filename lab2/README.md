@@ -110,7 +110,7 @@ To test the results launch three terminals and run:
     $ rosrun turtlesim turtlesim_node # Enable turtle node (GUI)
 
     # 3rd terminal
-    $ source /dev/setup.bash # source catkin env
+    $ source /devel/setup.bash # source catkin env
     $ rosrun hello_turtle myTeleopKey.py # Run keyboard-control implementation
 
 ```
