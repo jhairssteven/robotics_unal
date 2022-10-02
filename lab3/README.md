@@ -15,8 +15,14 @@ ___
 We create input and output signals following the steps shown in the image below.
 ![Creating - IOs](/lab3/images/Creating_IOs.png)
 
-A window wizard opens to create a new signal, we create three inputs and one output. Below is the complete configuration. 
+A window wizard opens to create a new signal, we create three inputs and one output.
 ![Created signals](/lab3/images/Created_signals.png)
+
+Below is a detailed explanation of what each signal represents and how it relates to the electrical board.
+
+- `DI_1`: Digital input 1 (button)
+- `DI_2`: Digital input 2 (button)
+- `DO_1`: Digital output 1 (LED)
 
 Finally, we start the ***I/O Simulator*** to see and manage our signal's state. Note that we filter by device and select *\<none>* because we didn't assign a device when we created the signals. This way later, we can filter by device and see just our recently created signals.
 
@@ -24,7 +30,7 @@ Finally, we start the ***I/O Simulator*** to see and manage our signal's state. 
 
 ## Loops and conditionals
 ___
-After some research, [Robotics & Gaming](https://www.youtube.com/watch?v=kRuSMqpowLU) and [BME Teaching](https://www.youtube.com/watch?v=Z6foYAlgE8A) show how to use `while` loops and conditional statements in RobotStudio. The syntax is quite simple and pretty similar to other programming languages. Below you can find their implementation in the project.
+After some research, [Robotics & Gaming](https://www.youtube.com/watch?v=kRuSMqpowLU) and [BME Teaching](https://www.youtube.com/watch?v=Z6foYAlgE8A) show how to use `while` loops and conditional statements in RobotStudio. The syntax is quite simple and pretty similar to other programming languages. Below you can find their use in the project. Note the recently created signals (`DI_1` and `DI_2`) are evaluated as boolean variables.
 
 ```SQL
 WHILE DI_1 = 1 OR DI_2 = 1 OR DI_3 = 1 DO
@@ -48,6 +54,8 @@ WHILE DI_1 = 1 OR DI_2 = 1 OR DI_3 = 1 DO
 ENDWHILE
 ```
 
+Where `SetDO X, Y` sets the `X` digital output to the `Y` boolean state.
+    
 ## Using old trajectories and implementing new ones
 ___
 We use the [trajectory paths](../lab1/RobotStudio%20modules/hor_plane/Module1.mod) developed on part one to write our name's initials on an horizontal plane together with a new trajectory which positions the robot at a convenient posture to easily install our [tool](../lab1/CADs/SATs/ToolM.sat). Below you can find a simplified flow diagram of the code arquitecture.
