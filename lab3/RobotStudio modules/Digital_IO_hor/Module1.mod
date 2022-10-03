@@ -66,6 +66,8 @@ MODULE Module1
     CONST jointtarget JointMedium_point:=[[0,17.582,18.598,1.065,26.739,-18.332],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST jointtarget JointHome:=[[0,0,0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST jointtarget Tool_mounting:=[[90,0,0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS tooldata ToolM_DS109:=[TRUE,[[0,0,199.132],[0.949782708,0.067451832,-0.305553692,-0.000003594]],[0.13,[-0.003,72.016,0.062],[1,0,0,0],0,0,0]];
+    PERS wobjdata Workobject_1:=[FALSE,TRUE,"",[[450,400,0],[0.707106781,0,0,0.707106781]],[[0,0,0],[1,0,0,0]]];
 !***********************************************************
     !
     ! Module:  Module1
@@ -88,21 +90,21 @@ MODULE Module1
     !
     !***********************************************************
     PROC main()
-        WHILE DI_1 = 1 OR DI_2 = 1 OR DI_3 = 1 DO
-            IF DI_1 = 1 AND DI_2 = 0 THEN
+        WHILE DI_01 = 1 OR DI_02 = 1 OR DI_03 = 1 DO
+            IF DI_01 = 1 AND DI_02 = 0 THEN
                 Home;
                 Medium_point;
-                SetDO DO_1, 1;
+                SetDO DO_01,1;
                 Path_10;
                 Path_20;
                 Path_30;
                 Medium_point;
                 Home;
-            ELSEIF DI_2 = 1 AND DI_1 = 0 THEN
+            ELSEIF DI_02 = 1 AND DI_01 = 0 THEN
                 Soft_home;
                 Mount_Tool;
-                SetDO DO_1, 0;
-            ELSEIF DI_3 = 1 THEN
+                SetDO DO_01,0;
+            ELSEIF DI_03 = 1 THEN
                 Home;
             ELSE
             ENDIF
