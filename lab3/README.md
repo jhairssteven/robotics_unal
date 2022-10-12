@@ -73,6 +73,9 @@ https://user-images.githubusercontent.com/71862429/190883805-9fdef2ee-af37-474d-
 
 ## Physical implementation
 [Here](/lab3/RobotStudio%20modules/Digital_IO_hor/) you can find the module we used on the physical implementation.
+
+https://user-images.githubusercontent.com/49238411/194687766-94264e19-5ab7-445c-aac0-9ee20e6d2960.mp4
+
 ___
 
 Developed by
