@@ -15,10 +15,10 @@ A service is another way of communication between nodes apart from the publisher
 # System requirements
 We are using an Ubuntu 20.04 installation, with ROS noetic version 1.15.14 and MATLAB R2022a.
 #Matlab Implementation
-## Required Matlab toolboxes
+## Required MATLAB toolboxes
 - Robotics ToolBox
 - ROS ToolBox
-## Required packages
+## Required Python packages
 - pynput
 - numpy
 
@@ -110,7 +110,7 @@ To test the results launch three terminals and run:
     $ rosrun turtlesim turtlesim_node # Enable turtle node (GUI)
 
     # 3rd terminal
-    $ source /dev/setup.bash # source catkin env
+    $ source /devel/setup.bash # source catkin env
     $ rosrun hello_turtle myTeleopKey.py # Run keyboard-control implementation
 
 ```
@@ -190,17 +190,43 @@ The `VelPub` class implements an [`__init__`](https://github.com/jhairssteven/ro
         self.rate.sleep()
 ```
 
-# Results
+# Results and Analysis
 ## MATLAB Implementation
+
 ### Use of Publishers 
+First, we have the turtle original position:
+
+![Turtle original position](/lab2/images/turtle_original.png)
+
+Then, the turtle moves 1 unit in X after setting the velocity to this value:
+
+![Turtle after publisher](/lab2/images/turtle_after_publisher.png)
+
 ### Use of Subscribers 
+The information about position and orientation after publishing is shown: 
+
+![Turtle info after publisher](/lab2/images/subs_info_1.png)
+
 ### Use of Services 
+After using the "teleport_absolute" service, the turtle position and orientation changes as shown:
 
+![Turtle after Service](/lab2/images/turtle_teleport_service.png)
 
+We can verify this by using the previous subscriber created:
 
+![Turtle info after publisher](/lab2/images/subs_info_2.png)
 
+## Python implementation
 
+Below you can find a short video showing the keyboard interface's results. Note we use the `r` key not only to reset the turtle's position but to clear the trajectory.
 
+https://user-images.githubusercontent.com/71862429/191089540-2287ad6a-23c9-4036-8ff2-29dd143fd6fe.mp4
+
+# Conclusions
+1. The publisher/subscriber communication model allows loose coupling between nodes, which helps managing the system as it grows in complexity.
+2. Communication based on services is easier to use than the publisher/subscriber communication model because it is possible to read and write information in one step.
+3. MATLAB offers an useful set of commands that help using and understanding ROS. 
+4. Implementing ROS packages in python gives us a lot of flexibility and the oportunity to develop complex systems integrated with modern tools.
 ___
 Developed by
 [Juan David Díaz García](https://github.com/D4vidDG) and [Steven Gallego](https://github.com/jhairssteven).
