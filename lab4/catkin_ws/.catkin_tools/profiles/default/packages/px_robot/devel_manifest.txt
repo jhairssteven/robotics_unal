@@ -1,0 +1,5 @@
+px_robot
+/home/d4viddg/catkin_ws/devel/.private/px_robot/cmake.lock /home/d4viddg/catkin_ws/devel/./cmake.lock
+/home/d4viddg/catkin_ws/devel/.private/px_robot/share/px_robot/cmake/px_robotConfig-version.cmake /home/d4viddg/catkin_ws/devel/share/px_robot/cmake/px_robotConfig-version.cmake
+/home/d4viddg/catkin_ws/devel/.private/px_robot/share/px_robot/cmake/px_robotConfig.cmake /home/d4viddg/catkin_ws/devel/share/px_robot/cmake/px_robotConfig.cmake
+/home/d4viddg/catkin_ws/devel/.private/px_robot/lib/pkgconfig/px_robot.pc /home/d4viddg/catkin_ws/devel/lib/pkgconfig/px_robot.pc
