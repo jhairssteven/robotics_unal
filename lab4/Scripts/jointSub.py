@@ -9,8 +9,8 @@ HOME = [0,0,-87,0,-58.30]
 def callback(data):
     result = "";
     for i in range(5):
-        position = data.position[i] * (180/(pi)) - HOME[i]
-        result += "Joint "+str((i+1))+":"+ "{:.2f}".format(position)
+        relativePosition = data.position[i] * (180/(pi)) - HOME[i]
+        result += "Joint "+str((i+1))+":"+ "{:.2f}".format(relativePosition)
         if(i<4):
             result +=", "
     print(result)
