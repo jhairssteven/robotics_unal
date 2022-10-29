@@ -18,3 +18,19 @@ for point in trajectory:
     pose[2,3] = point[2]
     q = getJointValues(pose, degrees=True)
     setPose(q[0])
+
+isToolLoaded = False
+
+#User prompt
+if(isToolLoaded):
+    input("Press any key to load tool")
+else:
+    option = input("""Choose the next action to perform. \n
+                    (1) Draw Workspace \n
+                    (2) Draw Author's initials \n
+                    (3) Draw geometric shapes \n
+                    (4) Draw points \n
+                    (5) Draw free shape \n
+                    (6) Unload tool
+                    """)
+
