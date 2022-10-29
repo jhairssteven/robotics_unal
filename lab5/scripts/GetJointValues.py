@@ -5,10 +5,11 @@ import math
 
 import numpy
 
-L1 = 145;
-L2 = 106.3;
-L3 = 106.3;
-L4 = 89.7;
+#Robot dimensions in cm
+L1 = 14.5;
+L2 = 10.63;
+L3 = 10.63;
+L4 = 8.97;
 
 def GetJointValues(pose):
     try:
