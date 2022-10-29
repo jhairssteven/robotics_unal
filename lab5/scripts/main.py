@@ -1,53 +1,20 @@
-from jointCommand import jointCommand
-from sendJointValues import sendJointValues
-from setGripper import setGripper
+from inv_kinematics import *
+from jointCommand import *
+from parser import *
 
+configMotors()
 
-motors_ids = [1 2 3 4 5]
+pose = np.matrix(""" 0.7544   -0.1330    0.6428  188.5789;
+                        0.6330   -0.1116   -0.7660  158.2365;
+                        0.1736    0.9848    0.0000  234.1759;
+                        0         0         0    1.0000""")
 
-#Movement parameters
+trajectory_filename = "..\\trajectories\\circle.txt"
+trajectory = getTrajectoryFromTextFile(trajectory_filename)
 
-drawing_Distance_From_Plane = 0; #cm
-safe_Distance_From_Plane = 10; #cm
-
-
-#Get Positions
-
-# Motors configuration
-
-jointCommand('', motors_ids[0], 'Torque_Limit', 300, 0)
-jointCommand('', motors_ids[1], 'Torque_Limit', 500, 0)
-jointCommand('', motors_ids[2], 'Torque_Limit', 300, 0)
-jointCommand('', motors_ids[3], 'Torque_Limit', 300, 0)
-jointCommand('', motors_ids[4], 'Torque_Limit', 300, 0)
-
-jointCommand('', motors_ids[0], 'Torque_Enable', 1, 0)
-jointCommand('', motors_ids[1], 'Torque_Enable', 1, 0)
-jointCommand('', motors_ids[2], 'Torque_Enable', 1, 0)
-jointCommand('', motors_ids[3], 'Torque_Enable', 1, 0)
-jointCommand('', motors_ids[4], 'Torque_Enable', 1, 0)
-
-# Initial gripper open position
-setGripper(gripper_open_value)
-
-# Movement
-time.sleep(1)
-for i in q_vector1:
-    sendJointValues(i)    
-setGripper(base_gripper_closed_value)
-time.sleep(0.8)         # Stabnilization delay
-
-for i in q_vector2:
-    sendJointValues(i)
-setGripper(gripper_open_value)
-time.sleep(0.8)
-
-for i in q_vector3:
-    sendJointValues(i)
-setGripper(load_gripper_closed_value)
-time.sleep(0.8)
-
-for i in q_vector4:
-    sendJointValues(i)
-setGripper(gripper_open_value)
-time.sleep(0.5)
+for point in trajectory:
+    pose[0,3] = point[0]
+    pose[1,3] = point[1]
+    pose[2,3] = point[2]
+    q = getJointValues(pose, degrees=True)
+    setPose(q[0])

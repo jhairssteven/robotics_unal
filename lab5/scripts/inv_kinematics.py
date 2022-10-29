@@ -1,17 +1,14 @@
+from jointCommand import *
 from cmath import sqrt
-from numpy import array
 import numpy as np
 import math
 
-import numpy
+L1 = 145
+L2 = 106.3
+L3 = 106.3
+L4 = 89.7
 
-#Robot dimensions in cm
-L1 = 14.5;
-L2 = 10.63;
-L3 = 10.63;
-L4 = 8.97;
-
-def GetJointValues(pose):
+def getJointValues(pose, degrees=True):
     try:
         q = np.double([[0, 0, 0, 0], [0, 0, 0, 0]])
         desiredPos = pose[0:4,3] 
@@ -55,7 +52,8 @@ def GetJointValues(pose):
         q[0,3] = phi - q[0,1] -q[0,2]
         q[1,3] = phi - q[1,1] -q[1,2]
         
-        
+        if degrees:
+            return np.degrees(q)
         return q
     except ValueError:
         print("That position can't be reached with this configuration. Try another movement or configuration")
@@ -63,16 +61,11 @@ def GetJointValues(pose):
 def GetH10(theta1):
     cos = math.cos(theta1)
     sin = math.sin(theta1)
-    H10 = numpy.matrix([[cos,sin,0,0],
+    H10 = np.matrix([[cos,sin,0,0],
                         [0,0,1,-145],
                         [sin,-cos,0,0] ,
                         [0,0,0,1]])
     return H10
 
-pose = numpy.matrix(""" 0.7544   -0.1330    0.6428  188.5789;
-                        0.6330   -0.1116   -0.7660  158.2365;
-                        0.1736    0.9848    0.0000  234.1759;
-                        0         0         0    1.0000""")
-print(pose)
-q = GetJointValues(pose)
-print(q*(180/math.pi))
+def rad2deg(q):
+    return q*180 / math.pi
