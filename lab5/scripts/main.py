@@ -20,7 +20,21 @@ def draw(filename):
         setPhantomPose(q[0])
         time.sleep(0.001)
 
-def parse_option(option):
+def parse_option(option, tool_loaded):
+    if not tool_loaded:
+        if option in range(1,6):
+            print("Tool must be loaded to draw shapes")
+            return tool_loaded
+        if option == 6:
+            print("No tool to unload")
+            return tool_loaded
+        if option == 7:
+            tool_loaded = True
+    else:
+        if option==7:
+            print("Tool already mounted")
+            return tool_loaded
+
     file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
                 "inner_ring.txt", "outter_ring.txt", "line123.txt",
                 "point1to5.txt", "s_letter.txt", "triangle.txt"]
@@ -39,6 +53,7 @@ def parse_option(option):
     elif option == 5:
         draw(file_names[1])
     elif option == 6:
+        tool_loaded = False
         # TODO 
         print("Unload tool trajectory filename")
     elif option == 7:
@@ -49,29 +64,36 @@ def parse_option(option):
         print("Got-to-home trajectory filename")
     elif option == 9:
         exit()
+    return tool_loaded
+
+def print_menu():
+    print("""Menu options:
+                    (1) Draw Workspace 
+                    (2) Draw Author's initials 
+                    (3) Draw geometric shapes 
+                    (4) Draw points 
+                    (5) Draw free shape 
+                    (6) Unload tool
+                    (7) Load tool
+                    (8) Go to home
+                    (9) Exit
+                    (10) Clear screen""")
 
 def main():
-    configMotors()
+    # configMotors()
+    tool_loaded = False
+    print_menu()
     while True:
-        print("""Menu options:
-                (1) Draw Workspace 
-                (2) Draw Author's initials 
-                (3) Draw geometric shapes 
-                (4) Draw points 
-                (5) Draw free shape 
-                (6) Unload tool
-                (7) Load tool
-                (8) Go to home
-                (9) Exit""")
         try:
             option = int(input("Next action: "))
-            if option not in range(1,9):
+            if option not in range(1,10):
                 raise ValueError
         except ValueError:
             import os
             os.system('clear')
+            print_menu()
         else:
-            parse_option(option)       
+            tool_loaded = parse_option(option, tool_loaded)
 
 if __name__ == "__main__":
     main()
