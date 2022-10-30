@@ -1,5 +1,4 @@
 import rospy
-import time
 from dynamixel_workbench_msgs.srv import DynamixelCommand
 
 
@@ -17,17 +16,9 @@ def jointCommand(command, motor_id, addr_name, value, time):
 
 
 def configMotors():
-    jointCommand("", 0, "Torque_Limit", 300, 0)
-    jointCommand("", 1, "Torque_Limit", 500, 0)
-    jointCommand("", 2, "Torque_Limit", 300, 0)
-    jointCommand("", 3, "Torque_Limit", 300, 0)
-    jointCommand("", 4, "Torque_Limit", 300, 0)
-
-    jointCommand("", 0, "Torque_Enable", 1, 0)
-    jointCommand("", 1, "Torque_Enable", 1, 0)
-    jointCommand("", 2, "Torque_Enable", 1, 0)
-    jointCommand("", 3, "Torque_Enable", 1, 0)
-    jointCommand("", 4, "Torque_Enable", 1, 0)
+    for i in range(0, 5):
+        jointCommand("", i, "Torque_Limit", 300, 0)
+        jointCommand("", i, "Torque_Enable", 1, 0)
 
 
 def degrees2digital(degrees, min_deg=-150, max_deg=150):
@@ -36,7 +27,7 @@ def degrees2digital(degrees, min_deg=-150, max_deg=150):
     )
 
 
-def setPose(q):
+def setPhantomPose(q):
     """Doesn't set gripper"""
     q = degrees2digital(q)
     for i in range(0, 4):
