@@ -8,7 +8,7 @@ Feel free to take this as a reference for your projects, as this repo is under t
 - [Lab 2 | ROS intro](lab2/README.md)
 - [Lab 3 | Industrial robotics - part 2](lab3/README.md)
 - [Lab 4 | ROS - Phantom X forward kinematics](lab4/README.md)
-- [Lab 5 | ROS - Phantom X inverse kinematics](lab4/README.md)
+- [Lab 5 | ROS - Phantom X inverse kinematics](lab5/README.md)
 ___
 Developed by
 [Juan David Díaz García](https://github.com/D4vidDG) and [Steven Gallego](https://github.com/jhairssteven).
