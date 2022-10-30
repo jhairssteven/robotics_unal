@@ -80,7 +80,7 @@ def print_menu():
                     (10) Clear screen""")
 
 def main():
-    # configMotors()
+    configMotors()
     tool_loaded = False
     print_menu()
     while True:
