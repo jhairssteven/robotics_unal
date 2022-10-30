@@ -1,4 +1,3 @@
-from jointCommand import *
 from cmath import sqrt
 import numpy as np
 import math
@@ -56,7 +55,8 @@ def getJointValues(pose, degrees=True):
             return np.degrees(q)
         return q
     except ValueError:
-        print("That position can't be reached with this configuration. Try another movement or configuration")
+        print("Unreachable")
+        return np.double([[0, 0, 0, 0], [0, 0, 0, 0]])
     
 def GetH10(theta1):
     cos = math.cos(theta1)
