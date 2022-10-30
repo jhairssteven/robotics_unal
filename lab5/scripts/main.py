@@ -1,7 +1,13 @@
-from inv_kinematics import *
+from inv_kinematics import getJointValues
+from parser import getTrajectoryFromTextFile
 from jointCommand import *
-from parser import *
+import numpy as np
 import time
+
+
+def print_state(filename, coord):
+    print("Routine: {}. End effector: X: {} Y: {} Z: {} (mm)"
+            .format(filename, coord[0], coord[1], coord[2]))
 
 def draw(filename):
     pose = np.matrix(""" 0.7544   -0.1330    0.6428  188.5789;
@@ -12,13 +18,16 @@ def draw(filename):
     trajectory_filename = "..\\trajectories\\" + filename
     trajectory = getTrajectoryFromTextFile(trajectory_filename)
 
-    for point in trajectory:
-        pose[0,3] = point[0]
-        pose[1,3] = point[1]
-        pose[2,3] = point[2]
+    for coord in trajectory:
+        pose[0,3] = coord[0]
+        pose[1,3] = coord[1]
+        pose[2,3] = coord[2]
         q = getJointValues(pose, degrees=True)
-        setPhantomPose(q[0])
+        elbow_up_joints = q[0]
+        setPhantomPose(elbow_up_joints)
         time.sleep(0.001)
+
+        print_state(filename, [int(n) for n in coord])
 
 def parse_option(option, tool_loaded):
     if not tool_loaded:
@@ -38,6 +47,8 @@ def parse_option(option, tool_loaded):
     file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
                 "inner_ring.txt", "outter_ring.txt", "line123.txt",
                 "point1to5.txt", "s_letter.txt", "triangle.txt"]
+    start_time = time.time()
+    print("Tool state: Loaded")
     if option == 1:
         draw(file_names[3])
         draw(file_names[4])
@@ -64,6 +75,11 @@ def parse_option(option, tool_loaded):
         print("Got-to-home trajectory filename")
     elif option == 9:
         exit()
+    
+    end_time = time.time()
+    print("Routine has ended.")
+    print("Routine execution time:", int((end_time-start_time)*1000) , "ms")
+
     return tool_loaded
 
 def print_menu():
