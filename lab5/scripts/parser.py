@@ -1,5 +1,6 @@
 # Script to parse text files with data points to incorporate into the Phantom X movement
-
+# Text file should have the format
+# Target:= [x,y,z],
 from fileinput import filename
 
 def getTrajectoryFromTextFile(filename):
@@ -13,9 +14,10 @@ def getTrajectoryFromTextFile(filename):
     return trajectory
 
 
-file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
-                "inner_ring.txt", "line123.txt", "outter_ring.txt",
-                "point1to5.txt", "s_letter.txt", "triangle.txt"]
+if __name__ == "__main__":
+    file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
+                    "inner_ring.txt", "line123.txt", "outter_ring.txt",
+                    "point1to5.txt", "s_letter.txt", "triangle.txt"]
 
-# trajectory = getTrajectoryFromTextFile(file_names[0])
-# print(trajectory)
+    trajectory = getTrajectoryFromTextFile(file_names[0])
+    print(trajectory)
