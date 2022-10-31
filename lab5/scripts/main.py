@@ -1,6 +1,8 @@
+import cmath
+from math import atan2
 from inv_kinematics import getJointValues
 from parser import getTrajectoryFromTextFile
-#from jointCommand import *
+from jointCommand import *
 import numpy as np
 import time
 import os 
@@ -9,26 +11,31 @@ file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
                 "inner_ring.txt", "outter_ring.txt", "line123.txt",
                 "point1to5.txt", "s_letter.txt", "triangle.txt"]
 
+distance_From_Plane = 50
+
 def print_state(filename, coord):
     print("Routine: {}. End effector: X: {} Y: {} Z: {} (mm)"
             .format(filename, coord[0], coord[1], coord[2]))
 
 def draw(filename):
-    pose = np.matrix("""1   0   0   0;
-                        0   0   -1  0;
-                        0   1   0   0;
-                        0   0   0   1""") #Perpendicular to surface
-
     trajectory_filename = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"trajectories",filename)
     trajectory = getTrajectoryFromTextFile(trajectory_filename)
 
     for coord in trajectory:
+        theta1 = atan2(coord[1],coord[0])
+        cos_theta1 = np.real(cmath.cos(theta1))
+
+        sin_theta1 = np.real(cmath.sin(theta1))
+        pose = np.matrix([[cos_theta1,0,sin_theta1 ,0],
+                          [sin_theta1,0,-cos_theta1,0],
+                          [0         ,1,0          ,0],
+                          [0        ,0 ,0          ,1]]) #Perpendicular to surface
         pose[0,3] = coord[0]
         pose[1,3] = coord[1]
-        pose[2,3] = coord[2]
+        pose[2,3] = coord[2] + distance_From_Plane
         q = getJointValues(pose, degrees=True)
         elbow_up_joints = q[0]
-        #setPhantomPose(elbow_up_joints)
+        setPhantomPose(elbow_up_joints)
         time.sleep(0.001)
 
         print_state(filename, [int(n) for n in coord])
@@ -97,7 +104,7 @@ def print_menu():
                     (10) Clear screen""")
 
 def main():
-    #configMotors()
+    configMotors()
     tool_loaded = False
     print_menu()
     while True:
