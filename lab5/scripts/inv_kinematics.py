@@ -62,7 +62,7 @@ def GetH10(theta1):
     cos = math.cos(theta1)
     sin = math.sin(theta1)
     H10 = np.matrix([[cos,sin,0,0],
-                        [0,0,1,-145],
+                        [0,0,1,-L1],
                         [sin,-cos,0,0] ,
                         [0,0,0,1]])
     return H10

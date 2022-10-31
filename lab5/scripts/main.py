@@ -1,21 +1,25 @@
 from inv_kinematics import getJointValues
 from parser import getTrajectoryFromTextFile
-from jointCommand import *
+#from jointCommand import *
 import numpy as np
 import time
+import os 
 
+file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
+                "inner_ring.txt", "outter_ring.txt", "line123.txt",
+                "point1to5.txt", "s_letter.txt", "triangle.txt"]
 
 def print_state(filename, coord):
     print("Routine: {}. End effector: X: {} Y: {} Z: {} (mm)"
             .format(filename, coord[0], coord[1], coord[2]))
 
 def draw(filename):
-    pose = np.matrix(""" 0.7544   -0.1330    0.6428  188.5789;
-                        0.6330   -0.1116   -0.7660  158.2365;
-                        0.1736    0.9848    0.0000  234.1759;
-                        0         0         0    1.0000""")
+    pose = np.matrix("""1   0   0   0;
+                        0   0   -1  0;
+                        0   1   0   0;
+                        0   0   0   1""") #Perpendicular to surface
 
-    trajectory_filename = "..\\trajectories\\" + filename
+    trajectory_filename = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"trajectories",filename)
     trajectory = getTrajectoryFromTextFile(trajectory_filename)
 
     for coord in trajectory:
@@ -24,12 +28,14 @@ def draw(filename):
         pose[2,3] = coord[2]
         q = getJointValues(pose, degrees=True)
         elbow_up_joints = q[0]
-        setPhantomPose(elbow_up_joints)
+        #setPhantomPose(elbow_up_joints)
         time.sleep(0.001)
 
         print_state(filename, [int(n) for n in coord])
 
 def parse_option(option, tool_loaded):
+    if option == 9:
+        exit()
     if not tool_loaded:
         if option in range(1,6):
             print("Tool must be loaded to draw shapes")
@@ -44,9 +50,6 @@ def parse_option(option, tool_loaded):
             print("Tool already mounted")
             return tool_loaded
 
-    file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
-                "inner_ring.txt", "outter_ring.txt", "line123.txt",
-                "point1to5.txt", "s_letter.txt", "triangle.txt"]
     start_time = time.time()
     print("Tool state: Loaded")
     if option == 1:
@@ -73,8 +76,6 @@ def parse_option(option, tool_loaded):
     elif option == 8:
         # TODO
         print("Got-to-home trajectory filename")
-    elif option == 9:
-        exit()
     
     end_time = time.time()
     print("Routine has ended.")
@@ -96,7 +97,7 @@ def print_menu():
                     (10) Clear screen""")
 
 def main():
-    configMotors()
+    #configMotors()
     tool_loaded = False
     print_menu()
     while True:
