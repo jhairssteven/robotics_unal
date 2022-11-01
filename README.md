@@ -1,5 +1,5 @@
 # Robotics UN
-Below you will find an outline of the work done at the Robotics course at Universidad Nacional de Colombia.
+Below you will find an outline of the work done for the Robotics course at Universidad Nacional de Colombia.
 
 Feel free to take this as a reference for your projects, as this repo is under the GNU licence.
 
