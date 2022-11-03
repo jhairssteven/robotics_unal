@@ -6,21 +6,41 @@ from jointCommand import *
 import numpy as np
 import time
 import os 
+from mapValue import * 
+
+pub = rospy.Publisher('/joint_trajectory', JointTrajectory, queue_size=0)
+rospy.init_node('joint_publisher', anonymous=False)
 
 file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
                 "inner_ring.txt", "outter_ring.txt", "line123.txt",
                 "point1to5.txt", "s_letter.txt", "triangle.txt"]
 
-distance_From_Plane = 50
+drawing_distance_From_Plane = 70
+moving_distance_From_Plane = 100
+
+HOME = np.array([-85,0,-90,12]) #Our HOME position in absolute coordinates
+
+open_Gripper_Value = 350
+closed_Gripper_Value = 110
+
+timeScale = 1
 
 def print_state(filename, coord):
     print("Routine: {}. End effector: X: {} Y: {} Z: {} (mm)"
             .format(filename, coord[0], coord[1], coord[2]))
 
 def draw(filename):
+    
+    configMotors(True)
+    setGripperPosition(closed_Gripper_Value)
+    time.sleep(1)
     trajectory_filename = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"trajectories",filename)
     trajectory = getTrajectoryFromTextFile(trajectory_filename)
-
+    state = JointTrajectory()
+    state.header.stamp = rospy.Time.now()
+    state.joint_names = ["joint_1", "joint_2", "joint_3", "joint_4", "joint_5"]
+    
+    i = 0
     for coord in trajectory:
         theta1 = atan2(coord[1],coord[0])
         cos_theta1 = np.real(cmath.cos(theta1))
@@ -32,14 +52,38 @@ def draw(filename):
                           [0        ,0 ,0          ,1]]) #Perpendicular to surface
         pose[0,3] = coord[0]
         pose[1,3] = coord[1]
-        pose[2,3] = coord[2] + distance_From_Plane
+        if(coord[2] > 0):
+            pose[2,3] = moving_distance_From_Plane
+            timeScale = 2
+        else:
+            radius = np.real(cmath.sqrt(coord[0]**2 + coord[1]**2))
+            #print(radius)
+            pose[2,3] = drawing_distance_From_Plane + mapValue(radius,210,250,-6,0)
         q = getJointValues(pose, degrees=True)
-        elbow_up_joints = q[0]
-        setPhantomPose(elbow_up_joints)
-        time.sleep(0.001)
-
+        if(q[0,0] != -1):
+            elbow_up_joints = np.array(q[0]) + HOME
+            #setPhantomPose(elbow_up_joints,False)
+            point = JointTrajectoryPoint()
+            point.positions =  np.multiply([elbow_up_joints[0],elbow_up_joints[1],elbow_up_joints[2],elbow_up_joints[3],-50],pi/180) 
+            point.time_from_start = rospy.Duration(0.1*(i+1))
+            state.points.append(point)
+        i = i+1
         print_state(filename, [int(n) for n in coord])
+    
+    pub.publish(state)
 
+
+def goToHome():
+    q = [0,0,-90,0]
+    setPhantomPose(q,True)
+
+def loadTool():
+    None
+    #setGripperPosition(closed_Gripper_Value)
+def unloadTool():
+    None
+    #setGripperPosition(open_Gripper_Value)
+    
 def parse_option(option, tool_loaded):
     if option == 9:
         exit()
@@ -58,7 +102,12 @@ def parse_option(option, tool_loaded):
             return tool_loaded
 
     start_time = time.time()
-    print("Tool state: Loaded")
+
+    if(tool_loaded):
+        print("Tool Loaded")
+    else:
+        print("Tool Unloaded")
+
     if option == 1:
         draw(file_names[3])
         draw(file_names[4])
@@ -75,14 +124,11 @@ def parse_option(option, tool_loaded):
         draw(file_names[1])
     elif option == 6:
         tool_loaded = False
-        # TODO 
-        print("Unload tool trajectory filename")
+        unloadTool()
     elif option == 7:
-        # TODO 
-        print("Load tool trajectory filename")
+        loadTool()
     elif option == 8:
-        # TODO
-        print("Got-to-home trajectory filename")
+        goToHome()
     
     end_time = time.time()
     print("Routine has ended.")
@@ -104,8 +150,9 @@ def print_menu():
                     (10) Clear screen""")
 
 def main():
-    configMotors()
+    configMotors(False)
     tool_loaded = False
+    setGripperPosition(open_Gripper_Value)
     print_menu()
     while True:
         try:

@@ -56,7 +56,7 @@ def getJointValues(pose, degrees=True):
         return q
     except ValueError:
         print("Unreachable")
-        return np.double([[0, 0, 0, 0], [0, 0, 0, 0]])
+        return np.double([[-1, 0, 0, 0], [-1, 0, 0, 0]])
     
 def GetH10(theta1):
     cos = math.cos(theta1)
