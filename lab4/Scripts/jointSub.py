@@ -4,7 +4,7 @@ import rospy
 from std_msgs.msg import String
 from sensor_msgs.msg import JointState
 
-HOME = [0,0,-87,0,-58.30]
+HOME = [0,0,0,0,0]
 
 def callback(data):
     result = "";

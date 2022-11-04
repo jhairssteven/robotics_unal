@@ -5,7 +5,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
-HOME = [0,0,-87,0,-58.30] #Our HOME position in absolute coordinates
+HOME = [0,0,-87,0,0] #Our HOME position in absolute coordinates
 pose1 = [0,0,0,0,0]
 pose2 = [-20,20,-20,20,0] 
 pose3 = [-30,30,-30,30,0] 
@@ -24,7 +24,7 @@ def joint_publisher(input_pose):
         state.joint_names = ["joint_1", "joint_2", "joint_3", "joint_4", "joint_5"]
         point = JointTrajectoryPoint()
         point.positions =  input_pose   
-        point.time_from_start = rospy.Duration(0.5)
+        point.time_from_start = rospy.Duration(0.1)
         state.points.append(point)
         pub.publish(state)
         print('published command')

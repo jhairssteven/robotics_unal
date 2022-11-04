@@ -1,4 +1,5 @@
 from cmath import sqrt
+import cmath
 import numpy as np
 import math
 
@@ -69,3 +70,14 @@ def GetH10(theta1):
 
 def rad2deg(q):
     return q*180 / math.pi
+
+def getPerpendicularOrientation(coord):
+    theta1 = math.atan2(coord[1],coord[0])
+    cos_theta1 = np.real(cmath.cos(theta1))
+
+    sin_theta1 = np.real(cmath.sin(theta1))
+    H = np.matrix([[cos_theta1,0,sin_theta1 ,0],
+                        [sin_theta1,0,-cos_theta1,0],
+                        [0         ,1,0          ,0],
+                        [0        ,0 ,0          ,1]]) #Perpendicular to surface
+    return H

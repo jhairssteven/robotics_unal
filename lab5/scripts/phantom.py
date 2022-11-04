@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import rospy
 from dynamixel_workbench_msgs.srv import DynamixelCommand
@@ -5,7 +6,15 @@ from cmath import pi
 import rospy
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
-
+#Publisher
+pub = rospy.Publisher('/joint_trajectory', JointTrajectory, queue_size=0)
+rospy.init_node('joint_publisher', anonymous=False)
+#Trajectory
+state = None
+durationCount = 0
+waitCount = 0
+trajectory_point_duration = 0.15
+wait_Per_Point = 0.7
 
 
 def jointCommand(command, motor_id, addr_name, value, time):
@@ -20,33 +29,32 @@ def jointCommand(command, motor_id, addr_name, value, time):
     except rospy.ServiceException as exc:
         print(str(exc))
 
-def joint_publisher(angles):
-    pub = rospy.Publisher('/joint_trajectory', JointTrajectory, queue_size=0)
-    rospy.init_node('joint_publisher', anonymous=False)
+def initializeTrajectory():
+    global state
     state = JointTrajectory()
     state.header.stamp = rospy.Time.now()
     state.joint_names = ["joint_1", "joint_2", "joint_3", "joint_4", "joint_5"]
+    global durationCount, waitCount
+    durationCount = 0
+    waitCount = 0
+
+def addPointToTrajectory(angles, durationScale):
+    global durationCount, waitCount
+    durationCount = durationCount + trajectory_point_duration*durationScale
     point = JointTrajectoryPoint()
-    point.positions =  angles   
-    point.time_from_start = rospy.Duration(0.5)
+    point.positions =  np.multiply(angles,pi/180) 
+    point.time_from_start = rospy.Duration(durationCount)
     state.points.append(point)
+    waitCount = waitCount + wait_Per_Point*durationScale
+
+def executeTrajectory():
     pub.publish(state)
-    rospy.sleep(3)
+    time.sleep(waitCount)
 
-def configMotors(draw:bool):
-    if(draw):
-        for i in range(1, 4):
-            jointCommand("", i, "Torque_Limit", 700, 0)
-            jointCommand("", i, "Torque_Enable", 1, 0)
-        jointCommand("", 4, "Torque_Limit", 900, 0)
-        jointCommand("", 4, "Torque_Enable", 1, 0)
-        jointCommand("", 5, "Torque_Limit", 1023, 0)
-        jointCommand("", 5, "Torque_Enable", 1, 0)
-    else:
-        for i in range(1, 6):
-            jointCommand("", i, "Torque_Limit", 600, 0)
-            jointCommand("", i, "Torque_Enable", 1, 0)
-
+def configMotors():
+    for i in range(1, 4):
+        jointCommand("", i, "Torque_Limit", 900, 0)
+        jointCommand("", i, "Torque_Enable", 1, 0)
 
 def degrees2digital(degrees, min_deg=-150, max_deg=150):
     return list(
@@ -54,15 +62,11 @@ def degrees2digital(degrees, min_deg=-150, max_deg=150):
     )
 
 
-def setPhantomPose(q, sequentially:bool = False):
-    # """Doesn't set gripper"""
-    # q = degrees2digital(q)
-    # waitTime = 0
-    # if(sequentially):
-    #     waitTime = 0.5
-    # for i in range(0, 4):
-    #     jointCommand("", i+1, "Goal_Position", q[i], waitTime)
-    joint_publisher(np.multiply(q,(pi/180)))
+def setPhantomPose(q, waitTime):
+    """Doesn't set gripper"""
+    q = degrees2digital(q)
+    for i in range(0, 4):
+        jointCommand("", i+1, "Goal_Position", q[i],waitTime)
     
 
 
