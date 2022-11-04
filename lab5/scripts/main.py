@@ -14,10 +14,10 @@ file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
                 "inner_ring.txt", "outter_ring.txt", "line123.txt",
                 "point1to5.txt", "s_letter.txt", "triangle.txt","load.txt"]
 
-drawing_distance_From_Plane = 108
-moving_distance_From_Plane = 138
+drawing_distance_From_Plane = 109
+moving_distance_From_Plane = 139
 
-HOME = np.array([-85,0,-90,5]) #Our HOME position in absolute coordinates
+HOME = np.array([-85,0,-90,10]) #Our HOME position in absolute coordinates
 
 open_Gripper_Dig_Value = 515
 closed_Gripper_Dig_Value = 110
@@ -54,7 +54,7 @@ def draw(filename):
             durationScale = 2
         else:
             radius = np.real(cmath.sqrt(coord[0]**2 + coord[1]**2))
-            heightCorrection = mapValue(radius,225,250,-7,0)
+            heightCorrection = mapValue(radius,219,250,-8,0)
             pose[2,3] = drawing_distance_From_Plane + heightCorrection
             if(coord[2] == -1):
                 durationScale = 2
@@ -91,7 +91,8 @@ def loadTool(load:bool):
         pose = getPerpendicularOrientation(coord)
         pose[0,3] = coord[0]
         if(not load):
-            pose[0,3] = coord[0] + 12 #Correction for unload
+            pose[0,3] = coord[0] + 10 #Correction for unload
+            pose[1,3] = coord[1] -0.5 #Correction for unload
         pose[1,3] = coord[1]    
         pose[2,3] = coord[2]
         q = getJointValues(pose,degrees=True)

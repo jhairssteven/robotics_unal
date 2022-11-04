@@ -14,7 +14,7 @@ state = None
 durationCount = 0
 waitCount = 0
 trajectory_point_duration = 0.15
-wait_Per_Point = 0.7
+wait_Per_Point = 0.8
 
 
 def jointCommand(command, motor_id, addr_name, value, time):
