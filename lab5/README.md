@@ -36,6 +36,7 @@ def getTrajectoryFromTextFile(filename):
 ```
 
 ### Point Format
+___
 
 Each point is defined as a vector with _x_, _y_ and _z_ coordinates. However, our robot will be constantly changing between 2 constant heights: a height for drawing and a height for moving around without drawing. Therefore, we defined the _z_ coordinate as follows:
 
@@ -44,6 +45,7 @@ Each point is defined as a vector with _x_, _y_ and _z_ coordinates. However, ou
 - _z=-1_ means height for drawing. In this case, the robot transitions from moving to drawing. This is used to smooth the movement when the robot is descending.
 
 ## Inverse kinematics
+___
 
 We need to determine which joint values result in the position we need.
 
@@ -54,6 +56,7 @@ The first angle is simple to calculate.
 [theta1_ikine] (Images/theta1_ikine.png)
 
 ### Kinematic Decoupling
+___
 
 We will use kinematic decoupling to calculate the position of the robot's wrist, which is located in the fourth joint. This can be expressed as:
 
@@ -63,6 +66,7 @@ wristPos = desiredPos -  L4*approach
 Here, `approach` refers to the _X_ direction of tool's frame.
 
 ### Inverse kinematics for double pendulum
+___
 
 Note that the links from the second joint to the fourth joint form a double pendulum, which inverse kinematics are well known.
 
@@ -73,6 +77,7 @@ However, we need to obtain the wrist position measured from the second joint fra
 $$wrist^1 = H_{0}^1 wrist^0$$
 
 ### Fourth joint
+___
 
 Given a tool orientation $\phi$ in relation to second joint's frame, the fourth joint value can be found as:
 
@@ -87,6 +92,7 @@ approach^1 = H_{0}^1 approach^0
 $$
 
 ### Python Implementation
+___
 
 We obtain both elbow-down and elbow-up solution.  
 
@@ -170,10 +176,12 @@ def getPerpendicularOrientation(coord):
 ```
 
 ## Moving Phantom X
+___
 
 We defined a set of functions that allow us to move the robot's joints synchronously and also open and close the gripper. 
 
 ### Motor configuration
+___
 
 We enable torque in each joint and we limit it to a fixed value.
 
@@ -185,6 +193,7 @@ def configMotors():
 ```
 
 ### Executing trajectories
+___
 
 We use the _'/joint_trajectory'_ topic to publish a set of points the robot should follow.
 
@@ -264,6 +273,7 @@ def setPhantomPose(q, waitTime):
 
 
 ## Main program
+___
 
 First, we configure the motors. Then, we print the menu and wait for the user's input. When an option is selected, we process that input with ```parse_option```.
 
@@ -285,6 +295,7 @@ def main():
 ```
 
 ### Drawing
+___
 
 ```python
 def draw(filename):
@@ -341,26 +352,37 @@ After that, we obtain the joint values for that coordinate applying inverse kine
 We add all points to the trajectory and we execute it.
 
 ### Loading and unloading tool
+___
 
 This functionality was implemented following almost same steps explained before.
 
 ### Go to Home Routine
+___
 
 This routines uses the ROS service.
 
-```
+```python
 def goToHome():
     q = [0,0,-90,0]
     setPhantomPose(q,0.5)
 ```
 
-##Results
+## Results
+___
 
 Here's a video of the final result.
 
 
 ### Dimensional verification
+___
+
 
 
 ### Repeatability
+___
 
+
+___
+
+Developed by
+[Juan David Díaz García](https://github.com/D4vidDG) and [Steven Gallego](https://github.com/jhairssteven).
