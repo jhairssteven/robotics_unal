@@ -159,6 +159,7 @@ def GetH10(theta1):
                         [0,0,0,1]])
     return H10
 ```
+We use elbow-up configuration to avoid crashing the robot with the board.
 
 Since we will need to maintain the drawing tool perpendicular to the surface, we created an extra function to obtain a matrix transformation that puts our tool perpendicular to the board.
 
@@ -435,10 +436,14 @@ We conclude that robot's repeatability alse depended on how the tool was gripped
 
 ### Error calculation
 
-We put the CAD drawing over the real drawing to observe the error.
+We put the CAD drawing over the real drawing to visualize the error.
 
-![Error](Image/rep_test1_overlay.jpg)
+![Error](Images/rep_test1-overlay.jpg)
+
+We observe that the error is small for all figures except the custom shape and the outer ring. We had to reduce 20 milimeters to the outer ring because the inverse kinematics couldn't be calculated on the real one, so the error in this area is expected.
+
 
 ## Conclusions
 
-
+- Phantom robot is an useful tool to learn about robotics and kinematics. However, the fact that its liks are reall flexible makes it impossible to use in a real application where precision is needed.
+- Loadig and unloading phase can be further improve using a less sticky material to grap the tool.
