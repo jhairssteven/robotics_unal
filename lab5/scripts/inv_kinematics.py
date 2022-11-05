@@ -15,13 +15,15 @@ def getJointValues(pose, degrees=True):
         desiredOrientation = pose[0:3,0:3]
         approach = pose[0:4,0]
 
-        #%Cálculo de la primera articulación en radianes
-        q[0,0] = math.atan2(desiredPos[1], desiredPos[0]) #Codo abajo
+        #First joint value
+        q[0,0] = math.atan2(desiredPos[1], desiredPos[0]) 
         q[1,0] = q[0,0] 
 
-        #Desacople de muñeca:
+        #Mechanical Decoupling
         #Cálculo de la posición de la muñeca W
         wristPos = desiredPos -  L4*approach
+
+        #Inverse kinematics for Double pendulum
         H10 = GetH10(q[0,0])
         wristPos_1 = H10*wristPos
 
@@ -32,21 +34,21 @@ def getJointValues(pose, degrees=True):
         cos_theta3 = (x**2+y**2-L2**2-L3**2)/(2*L2*L3)
         sin_theta3 = np.real(sqrt(1-cos_theta3**2))
         theta3 = math.acos(cos_theta3)
-        q[0,2] = -theta3 + (math.pi/2) #Codo abajo
-        q[1,2] = theta3 + (math.pi/2)  #Codo arriba
+        q[0,2] = -theta3 + (math.pi/2) #Elbow down
+        q[1,2] = theta3 + (math.pi/2)  #Elbow up
 
         #Segunda articulación en radianes sin offset
         k1 = L2+L3*cos_theta3
         k2 = L3*math.sin(theta3)
 
-        q[0,1] = math.atan2(y,x) + math.atan2(k2, k1) #Codo abajo
-        q[1,1] = math.atan2(y,x) - math.atan2(k2, k1) #Codo arriba
+        q[0,1] = math.atan2(y,x) + math.atan2(k2, k1) #Elbow down
+        q[1,1] = math.atan2(y,x) - math.atan2(k2, k1) #Elbow up
 
-        #Teniendo en cuenta offset en la segunda articulación
+        #Adding offset
         q[0,1] = q[0,1] - math.pi/2
         q[1,1] = q[1,1] - math.pi/2;   
 
-        #Obtención de valor de cuarta articulación
+        #Last joint
         approach_1 = H10[0:3,0:3]*approach[0:3,0]
         phi = math.atan2(approach_1[1],approach_1[0])
         q[0,3] = phi - q[0,1] -q[0,2]
