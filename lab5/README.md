@@ -366,12 +366,14 @@ Here's an image of the final result.
 
 This verification was done measuring the figures drawn by the robot in real life and comparing then to the ones craeted in CAD.
 
+![dim_ver](Images/dimension_verification.jpg)
+
 #### Real dimensions
 
 ![real_dim](Images/real_dimensions.jpg)
 
 #### CAD dimensions
-![CAD_dim](Images/cad_dimensions.jpg)
+![CAD_dim](Images/cad_dimensions.jpeg)
 
 ### Repeatability
 
@@ -379,13 +381,13 @@ We can observe the robot's repeteability by performing the same trajectory multi
 
 #### First vs Second test
 
-Comparing the first and the second test, we observe that the robot drew the same trajectory with a little offset. This offset was measured as 5 milimeters.
+Comparing the first and the second test, we observe that the robot drew the same trajectory with a little offset. This offset was measured as 50 milimeters.
 
 ![test2](Images/rep_test2.jpg)
 
 #### Second vs Third test
 
-Comparing the second and the third test, we observe that the robot did the same trajectory in both cases because the second line appears darker. However, there was an offset of 1 or 2 milimeters when the custom shape and the workspace were drawn.
+Comparing the second and the third test, we observe that the robot did the same trajectory in both cases because the second line appears darker. However, there was an offset of 10 or 20 milimeters when the custom shape and the workspace were drawn.
 
 ![test3](Images/rep_test3.jpg)
 ![test3_figures](Images/rep_test3_figures.jpg)
@@ -398,9 +400,20 @@ Comparing the third and last test, we observe that the robot did something in be
 
 #### Observing the dots
 
-If we look at the dots drawn by the robot after all tests, we get a better picture of repeatability.
+If we look at the dots drawn by the robot after all tests, we get a better picture of repeatability. The radius of these circles is around 1 centimeter.
 
 ![dotsRep](Images/dots_rep.jpg)
 
+#### Conclusion
+
+We conclude that robot's repeatability alse depended on how the tool was gripped. Taking this into account, we can estimate robot's repeatability between 50 and 100 milimeters.
+
 ### Error calculation
+
+We put the CAD drawing over the real drawing to observe the error.
+
+![Error](Image/rep_test1_overlay.jpg)
+
+## Conclusions
+
 
