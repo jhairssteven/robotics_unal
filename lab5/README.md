@@ -387,7 +387,6 @@ This verification was done measuring the figures drawn by the robot in real life
 ![real_dim](Images/real_dimensions.jpg)
 
 #### CAD dimensions
-![CAD_dim](Images/cad_dimensions.jpg)
 
 This verification was done measuring the figures drawn by the robot in real life and comparing then to the ones craeted in CAD.
 
