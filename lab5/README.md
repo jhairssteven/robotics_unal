@@ -47,11 +47,11 @@ Each point is defined as a vector with _x_, _y_ and _z_ coordinates. However, ou
 
 We need to determine which joint values result in the position we need.
 
-[Phantom_dimensions] (Images/Phantom_dimensions.png)
+![dimensions](Images/Phantom_dimensions.png)
 
 The first angle is simple to calculate.
 
-[theta1_ikine] (Images/theta1_ikine.png)
+![theta1](Images/theta1_ikine.png)
 
 ### Kinematic Decoupling
 
@@ -66,7 +66,7 @@ Here, `approach` refers to the _X_ direction of tool's frame.
 
 Note that the links from the second joint to the fourth joint form a double pendulum, which inverse kinematics are well known.
 
-[double_pendulum] (Images/double_pendulum.jpg)
+![double_pendulum](Images/double_pendulum.jpg)
 
 However, we need to obtain the wrist position measured from the second joint frame. Then, we calculate the transformation matrix from the first frame to the second.
 
@@ -354,13 +354,53 @@ def goToHome():
     setPhantomPose(q,0.5)
 ```
 
-##Results
+## Results
 
-Here's a video of the final result.
+Here's a [video](https://youtu.be/R8t0FMSQWJM) of the final result.
 
+Here's an image of the final result.
+
+![test1](Images/rep_test1.jpg)
 
 ### Dimensional verification
 
+This verification was done measuring the figures drawn by the robot in real life and comparing then to the ones craeted in CAD.
+
+#### Real dimensions
+
+![real_dim](Images/real_dimensions.jpg)
+
+#### CAD dimensions
+![CAD_dim](Images/cad_dimensions.jpg)
 
 ### Repeatability
+
+We can observe the robot's repeteability by performing the same trajectory multiple times. Four tests were performed.
+
+#### First vs Second test
+
+Comparing the first and the second test, we observe that the robot drew the same trajectory with a little offset. This offset was measured as 5 milimeters.
+
+![test2](Images/rep_test2.jpg)
+
+#### Second vs Third test
+
+Comparing the second and the third test, we observe that the robot did the same trajectory in both cases because the second line appears darker. However, there was an offset of 1 or 2 milimeters when the custom shape and the workspace were drawn.
+
+![test3](Images/rep_test3.jpg)
+![test3_figures](Images/rep_test3_figures.jpg)
+
+#### Third vs Fourth test
+
+Comparing the third and last test, we observe that the robot did something in between the first and the second trajectory.
+
+![test4](Images/rep_test4.jpg)
+
+#### Observing the dots
+
+If we look at the dots drawn by the robot after all tests, we get a better picture of repeatability.
+
+![dotsRep](Images/dots_rep.jpg)
+
+### Error calculation
 
