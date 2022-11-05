@@ -17,7 +17,9 @@ file_names = ["circle.txt", "custom_part.txt", "d_letter.txt",
 drawing_distance_From_Plane = 109
 moving_distance_From_Plane = 139
 
-HOME = np.array([-85,0,-90,10]) #Our HOME position in absolute coordinates
+HOME = np.array([0,0,-90,0]) #Our HOME position in absolute coordinates
+CORRECTIONS = np.array([-85,0,-90,0]) #Corrections to joint values
+
 
 open_Gripper_Dig_Value = 515
 closed_Gripper_Dig_Value = 110
@@ -66,7 +68,7 @@ def draw(filename):
         print_state(filename, [int(n) for n in coord])
 
         if(q[0,0] != -1):
-            elbow_up_joints = q[0] + HOME
+            elbow_up_joints = q[0] + HOME + CORRECTIONS
             elbow_up_joints = np.append(elbow_up_joints,closed_Gripper_Angle_Value)
             addPointToTrajectory(elbow_up_joints,durationScale)
             
@@ -96,7 +98,7 @@ def loadTool(load:bool):
         pose[1,3] = coord[1]    
         pose[2,3] = coord[2]
         q = getJointValues(pose,degrees=True)
-        elbow_up_joints = q[0] + HOME
+        elbow_up_joints = q[0] + HOME + CORRECTIONS
         if(load):
             elbow_up_joints = np.append(elbow_up_joints,open_Gripper_Angle_Value)
         else:
